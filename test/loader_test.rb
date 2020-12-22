@@ -11,8 +11,14 @@ class LoaderTest < Minitest::Test
     assert_instance_of Loader, @loader
   end
 
-  def test_it_loads_files
-    contents = @loader.load_csv("full_event_attendees.csv")
+  def test_returns_nil_when_file_not_found
+    contents = @loader.load_csv("does_not_exist.csv")
+
+    assert_nil contents
+  end
+
+  def test_it_loads_a_file_by_default
+    contents = @loader.load_csv
 
     assert_instance_of CSV, contents
   end
