@@ -1,34 +1,34 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/csv_loader'
+require './lib/csv_importer'
 
-class MockLoader
-  include CSVLoader
+class MockImporter
+  include CSVImporter
 end
 
-class CSVLoaderTest < Minitest::Test
+class CSVImporterTest < Minitest::Test
   def setup
-    @loader = MockLoader.new
+    @importer = MockImporter.new
   end
 
   def test_it_exists
-    assert_instance_of MockLoader, @loader
+    assert_instance_of MockImporter, @importer
   end
 
   def test_returns_nil_when_file_not_found
-    contents = @loader.load("does_not_exist.csv")
+    contents = @importer.import("does_not_exist.csv")
 
     assert_nil contents
   end
 
   def test_it_loads_a_file_by_default
-    contents = @loader.load
+    contents = @importer.import
 
     assert_instance_of CSV, contents
   end
 
   def test_it_can_load_by_filename
-    contents = @loader.load("full_event_attendees.csv")
+    contents = @importer.import("full_event_attendees.csv")
 
     assert_instance_of CSV, contents
   end

@@ -1,7 +1,7 @@
 require 'csv'
 
-module CSVLoader
-  def load(filename="full_event_attendees.csv")
+module CSVImporter
+  def import(filename="full_event_attendees.csv")
     open(filename) if file_exists?(filename)
   end
 
