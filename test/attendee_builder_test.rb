@@ -1,12 +1,22 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/attendee_builder'
+require './lib/csv_loader'
 
 class AttendeeBuilderTest < Minitest::Test
   def test_it_exists
     builder = AttendeeBuilder.new("test_good_data.csv")
 
     assert_instance_of AttendeeBuilder, builder
+  end
+
+  def test_it_reads_csv_when_created
+    skip
+    filename = "test_good_data.csv"
+    csv_loader = CSVLoader.new(filename)
+    builder = AttendeeBuilder.new(filename)
+
+    # TODO assert some stuff and make sure csv got loaded
   end
 
   # can clean phone number

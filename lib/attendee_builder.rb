@@ -1,6 +1,6 @@
 class AttendeeBuilder
   def initialize(filename)
-
+    # @original_csv = load_csv(filename)
   end
 
   def clean_zipcode(zipcode)
