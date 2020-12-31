@@ -1,13 +1,8 @@
 require './lib/attendee'
-require './lib/csv_importer'
 
 class AttendeeListBuilder
-  include CSVImporter
-
-  attr_reader :original_csv
-
-  def initialize(filename)
-    @original_csv = load_csv(filename)
+  def initialize(csv)
+    @original_csv = csv
   end
 
   def create_attendee_list
@@ -64,9 +59,5 @@ class AttendeeListBuilder
       state: :state,
       zipcode: :zipcode
     }
-  end
-
-  def load_csv(filename)
-    import(filename)
   end
 end

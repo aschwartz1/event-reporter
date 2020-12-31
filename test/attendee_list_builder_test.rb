@@ -2,16 +2,21 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/attendee_list_builder'
 require './lib/attendee'
+require './lib/csv_importer'
 
 class AttendeeListBuilderTest < Minitest::Test
+  include CSVImporter
+
   def test_it_exists
-    builder = AttendeeListBuilder.new("test_good_data.csv")
+    csv = load_csv("test_good_data.csv")
+    builder = AttendeeListBuilder.new(csv)
 
     assert_instance_of AttendeeListBuilder, builder
   end
 
   def test_can_create_an_array_of_attendees
-    builder = AttendeeListBuilder.new("test_good_data.csv")
+    csv = load_csv("test_good_data.csv")
+    builder = AttendeeListBuilder.new(csv)
 
     attendees = builder.create_attendee_list
 
@@ -23,7 +28,8 @@ class AttendeeListBuilderTest < Minitest::Test
   end
 
   def test_can_create_an_attendee
-    builder = AttendeeListBuilder.new("foo.csv")
+    csv = load_csv("foo.csv")
+    builder = AttendeeListBuilder.new(csv)
     info = {
       id: 1,
       registered_date: "11/12/08 10:47",
@@ -45,13 +51,6 @@ class AttendeeListBuilderTest < Minitest::Test
     assert_equal "20010", attendee.zipcode
   end
 
-  def test_it_reads_csv_when_created
-    filename = "test_good_data.csv"
-    builder = AttendeeListBuilder.new(filename)
-
-    assert_instance_of CSV, builder.original_csv
-  end
-
   def test_can_clean_phone_number
     builder = AttendeeListBuilder.new("foo.csv")
 
@@ -63,6 +62,10 @@ class AttendeeListBuilderTest < Minitest::Test
     builder = AttendeeListBuilder.new("foo.csv")
 
     assert_equal "00123", builder.clean_zipcode("123")
+  end
+
+  def load_csv(filename)
+    import(filename)
   end
 end
 
