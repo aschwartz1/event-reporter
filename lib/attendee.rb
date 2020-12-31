@@ -1,15 +1,4 @@
 class Attendee
-# Columns in the csv
-#   id
-#   reg_date
-#   first_name
-#   last_name
-#   email_address
-#   home_phone
-#   street
-#   city
-#   state
-#   zipcode
 
   attr_reader :id,
               :registered_date,
