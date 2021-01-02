@@ -1,0 +1,2 @@
+class Finder
+end
