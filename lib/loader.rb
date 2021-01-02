@@ -17,7 +17,7 @@ class Loader
   def execute(parsed_command)
     case parsed_command[:directive]
     when :load
-      load(parsed_command[:arguments])
+      load(parsed_command[:arguments][0])
     else
       "Invalid directive"
     end
@@ -72,11 +72,11 @@ class Loader
   end
 
   def validate_command_length(split_command)
-    [2..3].include?(split_command.length)
+    (2..3).include?(split_command.length)
   end
 
   def validate_command_directive(split_command)
-    DIRECTIVES.include?(split_command[1])
+    DIRECTIVES.include?(split_command[1].to_sym)
   end
 
   def validate_command_arguments(split_command)
@@ -88,8 +88,8 @@ class Loader
   end
 
   def get_command_arguments(split_command)
-    split_command.delete_if do |word|
-      word == "load" || DIRECTIVES.include?(word.to_sym)
+    split_command.select do |word|
+      !(word == "load" || DIRECTIVES.include?(word.to_sym))
     end
   end
 end

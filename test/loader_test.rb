@@ -44,10 +44,17 @@ class LoaderTest < Minitest::Test
   end
 
   def test_can_execute
-    skip
-    # TODO
     # create a valid parsed command (hash)
+    parsed_command = {
+      command: :load,
+      directive: :load,
+      arguments: ["full_event_attendees.csv"]
+    }
     # pass to method, make sure it works
+    attendee_list = @loader.execute(parsed_command)
+
     # make sure it also returns error string if directive is invalid
+    assert_instance_of Array, attendee_list
+    assert_equal true, attendee_list.all? { |obj| obj.is_a? Attendee }
   end
 end
